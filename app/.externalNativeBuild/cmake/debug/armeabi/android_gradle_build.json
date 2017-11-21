@@ -1,0 +1,38 @@
+
+{
+	"buildFiles" : [ "F:/DroneComputerVision/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"E:\\AndroidSDK\\cmake\\3.6.4111459\\bin\\cmake.exe --build F:\\DroneComputerVision\\app\\.externalNativeBuild\\cmake\\debug\\armeabi --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"native-lib-Debug-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "native-lib",
+			"buildCommand" : "E:\\AndroidSDK\\cmake\\3.6.4111459\\bin\\cmake.exe --build F:\\DroneComputerVision\\app\\.externalNativeBuild\\cmake\\debug\\armeabi --target native-lib",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv5te-none-linux-androideabi --gcc-toolchain=E:/AndroidSDK/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=E:/AndroidSDK/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem E:\\AndroidSDK\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include -isystem E:\\AndroidSDK\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\libs\\armeabi\\include -isystem E:\\AndroidSDK\\ndk-bundle\\sources\\cxx-stl\\gnu-libstdc++\\4.9\\include\\backward  -isystem E:/AndroidSDK/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=26 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "F:/DroneComputerVision/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "F:/DroneComputerVision/app/.externalNativeBuild/cmake/debug/armeabi"
+				}
+			],
+			"output" : "F:/DroneComputerVision/app/build/intermediates/cmake/debug/obj/armeabi/libnative-lib.so",
+			"toolchain" : "2188260979"
+		}
+	},
+	"toolchains" : 
+	{
+		"2188260979" : 
+		{
+			"cCompilerExecutable" : "E:/AndroidSDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "E:/AndroidSDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

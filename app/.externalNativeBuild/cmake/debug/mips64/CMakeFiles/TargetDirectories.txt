@@ -1,0 +1,3 @@
+F:/DroneComputerVision/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/native-lib.dir
+F:/DroneComputerVision/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/edit_cache.dir
+F:/DroneComputerVision/app/.externalNativeBuild/cmake/debug/mips64/CMakeFiles/rebuild_cache.dir
