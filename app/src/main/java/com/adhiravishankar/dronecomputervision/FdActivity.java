@@ -2,10 +2,12 @@ package com.adhiravishankar.dronecomputervision;
 
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.WindowManager;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -54,28 +56,8 @@ public class FdActivity extends Activity implements CameraBridgeViewBase.CvCamer
 
 
                     try {
-                        // load cascade file from application resources
-                        InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
-                        File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-                        File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
-                        FileOutputStream os = new FileOutputStream(mCascadeFile);
+                        load_xml(R.raw.lbpcascade_frontalface, "lbpcascade_frontalface.xml");
 
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        while ((bytesRead = is.read(buffer)) != -1) {
-                            os.write(buffer, 0, bytesRead);
-                        }
-                        is.close();
-                        os.close();
-
-                        mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-                        if (mJavaDetector.empty()) {
-                            Log.e(TAG, "Failed to load cascade classifier");
-                            mJavaDetector = null;
-                        } else
-                            Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-
-                        cascadeDir.delete();
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -91,6 +73,31 @@ public class FdActivity extends Activity implements CameraBridgeViewBase.CvCamer
             }
         }
     };
+
+    private void load_xml(int resource, String file) throws IOException {
+        // load cascade file from application resources
+        InputStream is = getResources().openRawResource(resource);
+        File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
+        File mCascadeFile = new File(cascadeDir, file);
+        FileOutputStream os = new FileOutputStream(mCascadeFile);
+
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            os.write(buffer, 0, bytesRead);
+        }
+        is.close();
+        os.close();
+
+        mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+        if (mJavaDetector.empty()) {
+            Log.e(TAG, "Failed to load cascade classifier");
+            mJavaDetector = null;
+        } else
+            Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
+
+        cascadeDir.delete();
+    }
 
     public FdActivity() {
         Log.i(TAG, "Instantiated new " + this.getClass());
@@ -130,6 +137,42 @@ public class FdActivity extends Activity implements CameraBridgeViewBase.CvCamer
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
     }
+
+    public int getCorrectCameraOrientation(Camera.CameraInfo info, Camera camera) {
+
+        int rotation = getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+
+        switch(rotation){
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+
+        }
+
+        int result;
+        if(info.facing== Camera.CameraInfo.CAMERA_FACING_FRONT){
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;
+        }else{
+            result = (info.orientation - degrees + 360) % 360;
+        }
+
+        return result;
+    }
+
 
     public void onDestroy() {
         super.onDestroy();
