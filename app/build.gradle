@@ -33,13 +33,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.0.1'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.facebook.fresco:fresco:1.5.0'
     implementation 'com.github.bumptech.glide:glide:4.3.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    compile ('com.google.android.gms:play-services-vision:11.6.2') { exclude module: 'support-v4' }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile project(path: ':openCVLibrary331')
+    compile 'com.android.support:mediarouter-v7:27.0.2'
 }

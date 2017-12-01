@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         } else {
-            startActivity(new Intent(this, FdActivity.class));
+            startActivity(new Intent(this, FdFileActivity2.class));
         }
     }
 
@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
         if (requestCode == 0) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                startActivity(new Intent(this, FdActivity.class));
+                startActivity(new Intent(this, FdFileActivity2.class));
             }
         }
     }
