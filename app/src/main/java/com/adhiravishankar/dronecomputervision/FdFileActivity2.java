@@ -29,6 +29,8 @@ public class FdFileActivity2 extends Activity {
 
     FaceDetector detector;
     FaceView faceView;
+    double average = 0;
+    double count = 0;
 
 
     @Override
@@ -74,7 +76,7 @@ public class FdFileActivity2 extends Activity {
         //Glide.with(this).load(bitmap).into(imageView);
 
         Glide.with(this).asBitmap()
-                .load("http://192.168.29.203:8000/latest/")
+                .load("http://192.168.29.203:8080/latest/")
                 .apply(RequestOptions.skipMemoryCacheOf(true))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                 .into(new SimpleTarget<Bitmap>() {
@@ -92,13 +94,19 @@ public class FdFileActivity2 extends Activity {
                             SparseArray<Face> faces = detector.detect(frame);
                             faceView.setContent(resource, faces);
                             long stop = System.currentTimeMillis();
+                            average = (average*count + stop - start) / (count + 1);
+                            count++;
                             System.out.print(faces.size());
                             System.out.print(",");
                             System.out.print(start);
                             System.out.print(",");
                             System.out.print(stop);
                             System.out.print(",");
-                            System.out.println(stop - start);
+                            System.out.print(stop - start);
+                            System.out.print(',');
+                            System.out.print(count);
+                            System.out.print(',');
+                            System.out.println(average);
                         }
                     }
                 });
