@@ -17,8 +17,11 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+import com.snatik.storage.Storage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -31,6 +34,9 @@ public class FdFileActivity2 extends Activity {
     FaceView faceView;
     double average = 0;
     double count = 0;
+    String path;
+    Storage storage;
+
 
 
     @Override
@@ -44,6 +50,10 @@ public class FdFileActivity2 extends Activity {
                 .setTrackingEnabled(false)
                 .setLandmarkType(FaceDetector.ALL_LANDMARKS)
                 .build();
+
+        storage = new Storage(getApplicationContext());
+        path = storage.getExternalStorageDirectory();
+
     }
 
     @Override
@@ -64,6 +74,13 @@ public class FdFileActivity2 extends Activity {
         }, delay);
     }
 
+    @Override
+    protected void onStop() {
+
+
+
+        super.onStop();
+    }
 
     void run(final long start) {
         // FutureTarget<Bitmap> futureTarget =
@@ -89,27 +106,19 @@ public class FdFileActivity2 extends Activity {
                     @Override
                     public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                         if (detector.isOperational()) {
+                            long communication_total = System.currentTimeMillis() - start
                             // Create a frame from the bitmap and run face detection on the frame.
                             Frame frame = new Frame.Builder().setBitmap(resource).build();
                             SparseArray<Face> faces = detector.detect(frame);
                             faceView.setContent(resource, faces);
-                            long stop = System.currentTimeMillis();
-                            average = (average*count + stop - start) / (count + 1);
-                            count++;
-                            System.out.print(faces.size());
-                            System.out.print(",");
-                            System.out.print(start);
-                            System.out.print(",");
-                            System.out.print(stop);
-                            System.out.print(",");
-                            System.out.print(stop - start);
-                            System.out.print(',');
-                            System.out.print(count);
-                            System.out.print(',');
-                            System.out.println(average);
+                            long total_runtime = System.currentTimeMillis() - start;
+                            long packets = resource.getByteCount();
+                            storage.appendFile(path + "/communication.txt", Long.toString(communication_total) + "\n");
+                            storage.appendFile(path + "/runtime.txt", Long.toString(total_runtime) + "\n");
+                            storage.appendFile(path + "/packets.txt", Long.toString(packets) + "\n");
+
                         }
                     }
                 });
-
     }
 }

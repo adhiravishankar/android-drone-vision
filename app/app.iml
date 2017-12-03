@@ -158,6 +158,7 @@
     <orderEntry type="library" name="com.android.support:appcompat-v7-27.0.2" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib-jre7:1.1.51@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-annotations:27.0.2@jar" level="project" />
+    <orderEntry type="library" name="com.snatik:storage-2.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-base-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-vision-common-license-11.6.2" level="project" />
