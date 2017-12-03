@@ -52,6 +52,10 @@ public class FdFileActivity2 extends Activity {
                 .build();
 
         storage = new Storage(getApplicationContext());
+        storage.createFile(path + "/communication.txt", "start");
+        storage.createFile(path + "/runtime.txt", "start");
+        storage.createFile(path + "/packets.txt", "start");
+
         path = storage.getExternalStorageDirectory();
 
     }
@@ -106,7 +110,7 @@ public class FdFileActivity2 extends Activity {
                     @Override
                     public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                         if (detector.isOperational()) {
-                            long communication_total = System.currentTimeMillis() - start
+                            long communication_total = System.currentTimeMillis() - start;
                             // Create a frame from the bitmap and run face detection on the frame.
                             Frame frame = new Frame.Builder().setBitmap(resource).build();
                             SparseArray<Face> faces = detector.detect(frame);
